@@ -1,0 +1,41 @@
+---
+title: "Suicide rates"
+author: "SaiNagaChandraVivekGarimella"
+date: "August 14, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readr)
+library(dplyr)
+library(dbplyr)
+library(RMySQL)
+library(DBI)
+library(ggplot2)
+death<-
+read_csv("C:/Users/garim/OneDrive/Desktop/NEU/Introduction to Data Management and Processing/data sets/suicide-rates-overview-1985-to-2016/master.csv")
+
+death
+
+death %>% group_by(country) %>% summarise(f=sum(suicides_no)) %>% collect() %>% ggplot()+
+  geom_bar(mapping = aes(x=country,y=f),stat = "identity")
+
+death %>% group_by(country) %>% summarise(f=sum(suicides_no)) %>% 
+  filter(f>250000) %>% collect() %>% ggplot()+geom_bar(mapping = aes(x=country,y=f),stat = "identity")
+
+death %>% group_by(generation) %>% collect()%>% ggplot()+
+  geom_bar(mapping = aes(x=generation))
+
+death %>% group_by(generation,year) %>% summarise(su=sum(suicides_no)) %>% ggplot()+
+  geom_bar(mapping = aes(x=year,y=su,fill=generation),stat = "identity")
+
+death %>% group_by(age,generation) %>% summarise(total=sum(suicides_no)) %>% collect() %>% ggplot()+
+  geom_bar(mapping = aes(x=age,y=total,fill=generation),stat = "identity",position = "dodge")
+
+
+```
+
