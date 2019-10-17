@@ -1,6 +1,8 @@
 
 •	Visualized number of suicides noted over different countries and identified countries with number of suicides greater than 2,50,000.
+
 •	Presented suicides committed each year by various generations from 1985-2016 and over the entire period (1985-2016).
+
 •	Identified number of suicides committed by various generations in each age group.
 
 Insights:
